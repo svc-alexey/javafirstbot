@@ -1,4 +1,4 @@
-package com.tgfirstbot;
+package ru.tgfirstbot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

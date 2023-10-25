@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>javafirstbot</artifactId>
-        <groupId>org.javafirstbot</groupId>
+        <groupId>ru.tgfirstbot</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,7 +14,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <telegrambot.starter.version>5.0.1</telegrambot.starter.version>
+        <telegrambot.starter.version>6.1.0</telegrambot.starter.version>
     </properties>
 
     <dependencies>
@@ -28,6 +28,13 @@
             <artifactId>telegrambots-spring-boot-starter</artifactId>
             <version>${telegrambot.starter.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>ru.tgfirstbot</groupId>
+            <artifactId>common-rabbitmq</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
 
     </dependencies>
 

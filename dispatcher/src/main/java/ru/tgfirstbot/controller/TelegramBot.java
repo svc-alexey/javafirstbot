@@ -1,13 +1,14 @@
-package com.tgfirstbot.controller;
+package ru.tgfirstbot.controller;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import javax.annotation.PostConstruct;
 
 @Component
 @Log4j
@@ -27,15 +28,19 @@ public class TelegramBot extends TelegramLongPollingBot {
         return botToken;
     }
 
+    private  UpadateController updateController;
+
+    public  TelegramBot(UpadateController updateController) {
+        this.updateController = updateController;
+    }
+    @PostConstruct
+    public void init () {
+        updateController.registerBot(this);
+    }
+
     @Override
     public void onUpdateReceived(Update update) {
-        var originalMassge = update.getMessage();
-        log.debug(originalMassge.getText());
-
-        var response = new SendMessage();
-        response.setChatId(originalMassge.getChatId().toString());
-        response.setText("Hello my fried");
-        sendAnswerMessage(response);
+        updateController.processUpdate(update);
     }
 
     public void sendAnswerMessage(SendMessage message) {
