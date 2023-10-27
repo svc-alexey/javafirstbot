@@ -1,6 +1,4 @@
 
-r
-Bdispatcher/src/main/java/com/tgfirstbot/DispatcherApplication.java,8\a\8a8f988cb4fbab5e6e7d525cd4061a2de90030cf
 ^
 .dispatcher/src/main/resources/log4j.properties,e\6\e69fc717572e7df14b60a7f19942bc6c9c1c7abd
 C
@@ -9,5 +7,21 @@ B
 dispatcher/pom.xml,5\3\53a25899ca43c090ca7dd193a8ec798b41bd507f
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-s
-Cdispatcher/src/main/java/com/tgfirstbot/controller/TelegramBot.java,1\4\14ea066d1a9a0799c97f03a0c30f704b2d7f78fe
+G
+common-rabbitmq/pom.xml,1\d\1dea96b5698cd26457582df42f8ec401e02ffafe
+r
+Bdispatcher/src/main/java/ru/tgfirstbot/service/AnswerConsumer.java,3\7\37e29f1c13eb6b41c0db5b9847502d17f5230607
+r
+Bdispatcher/src/main/java/ru/tgfirstbot/service/UpdateProducer.java,a\6\a68b04078fda1f26f30cf4cbb8221f97c7b271f0
+r
+Bcommon-rabbitmq/src/main/java/ru/tgfirstbot/model/RabbitQueue.java,5\8\585f29f3864ad30169c319c1b2df2f90cc55cd67
+q
+Adispatcher/src/main/java/ru/tgfirstbot/DispatcherApplication.java,a\4\a4b0515abcc0fdb2ae2837901558a93b68a2042c
+r
+Bdispatcher/src/main/java/ru/tgfirstbot/controller/TelegramBot.java,6\b\6b9ecd46905bf72e8f1373b09f489a01fa0e59e5
+n
+>dispatcher/src/main/java/ru/tgfirstbot/utils/MessageUtils.java,2\2\22ee4b338120d967b4d7cb40ba082a2c54f619a3
+x
+Hdispatcher/src/main/java/ru/tgfirstbot/controller/UpadateController.java,f\3\f307b4b2a040102d76452c2eb4a8ccec546f8841
+{
+Kdispatcher/src/main/java/ru/tgfirstbot/service/impl/UpdateProducerImpl.java,2\2\22c4011b8151d873424eec5843e2140487aba501

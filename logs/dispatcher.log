@@ -5,3 +5,4 @@
 2023-10-25 21:19:16 DEBUG TelegramBot:33 - sdf
 2023-10-25 21:19:16 ERROR TelegramBot:46 - org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Unable to deserialize response
 2023-10-25 23:44:26 DEBUG UpdateProducerImpl:14 - mml
+2023-10-27 23:09:05 DEBUG UpdateProducerImpl:22 - hello
