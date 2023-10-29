@@ -31,47 +31,48 @@ public class UpdateController {
             log.error("Recive update is null");
             return;
         }
-        if (update.getMessage() != null) {
+        if (update.hasMessage()) {
             distributeMessageByType(update);
         } else log.error("Recive unsopperted message type " + update);
     }
 
     private void distributeMessageByType(Update update) {
         var message = update.getMessage();
-        if (message.getText() != null) {
+        if (message.hasText()) {
             processTextMessage(update);
-        } else if (message.getDocument() != null) {
+        } else if (message.hasDocument()) {
             processDocMessage(update);
-        } else if (message.getPhoto() != null) {
+        } else if (message.hasPhoto()) {
             processPhotoMessage(update);
-	} else {
+        } else {
             setUnsupportedMessageTypeView(update);
-	}
+        }
     }
 
     private void setUnsupportedMessageTypeView(Update update) {
         var sendMessage = messageUtils.generateSendMessageWithText(update,
-			"Неподдерживаемый тип сообщения!");
+                "Неподдерживаемый тип сообщения!");
         setView(sendMessage);
     }
 
     private void setFileIsReceivedView(Update update) {
-	var sendMessage = messageUtils.generateSendMessageWithText(update,
-			"Файл получен! Обрабатывается...");
-	setView(sendMessage);
+        var sendMessage = messageUtils.generateSendMessageWithText(update,
+                "Файл получен! Обрабатывается...");
+        setView(sendMessage);
     }
+
     public void setView(SendMessage sendMessage) {
         telegramBot.sendAnswerMessage(sendMessage);
     }
 
     private void processPhotoMessage(Update update) {
-	updateProducer.produce(PHOTO_MESSAGE_UPDATE, update);
-	setFileIsReceivedView(update);
+        updateProducer.produce(PHOTO_MESSAGE_UPDATE, update);
+        setFileIsReceivedView(update);
     }
 
     private void processDocMessage(Update update) {
-	updateProducer.produce(DOC_MESSAGE_UPDATE, update);
-	setFileIsReceivedView(update);
+        updateProducer.produce(DOC_MESSAGE_UPDATE, update);
+        setFileIsReceivedView(update);
     }
 
     private void processTextMessage(Update update) {
