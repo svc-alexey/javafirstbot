@@ -28,9 +28,9 @@ public class TelegramBot extends TelegramLongPollingBot {
         return botToken;
     }
 
-    private  UpadateController updateController;
+    private UpdateController updateController;
 
-    public  TelegramBot(UpadateController updateController) {
+    public  TelegramBot(UpdateController updateController) {
         this.updateController = updateController;
     }
     @PostConstruct

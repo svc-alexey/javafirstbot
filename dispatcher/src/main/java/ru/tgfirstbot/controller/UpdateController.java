@@ -12,12 +12,12 @@ import static ru.tgfirstbot.model.RabbitQueue.*;
 
 @Component
 @Log4j
-public class UpadateController {
+public class UpdateController {
     private TelegramBot telegramBot;
     private final MessageUtils messageUtils;
     private final UpdateProducer updateProducer;
 
-    public UpadateController(MessageUtils messageUtils, UpdateProducer updateProducer) {
+    public UpdateController(MessageUtils messageUtils, UpdateProducer updateProducer) {
         this.messageUtils = messageUtils;
         this.updateProducer = updateProducer;
     }
@@ -60,7 +60,7 @@ public class UpadateController {
                 "Файл получен! Обрабатывется...");
         setView(sendMessage);
     }
-    private void setView(SendMessage sendMessage) {
+    public void setView(SendMessage sendMessage) {
         telegramBot.sendAnswerMessage(sendMessage);
     }
 
