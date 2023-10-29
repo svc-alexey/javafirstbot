@@ -1,10 +1,8 @@
-package ru.tgfirstbot.servise.configuration;
+package ru.tgfirstbot.service.configuration;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import static ru.tgfirstbot.model.RabbitQueue.*;
 
 @Configuration
 public class RabbitConfiguration {

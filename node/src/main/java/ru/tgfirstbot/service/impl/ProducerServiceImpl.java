@@ -1,9 +1,10 @@
-package ru.tgfirstbot.servise.impl;
+package ru.tgfirstbot.service.impl;
 
-import org.jvnet.hk2.annotations.Service;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import ru.tgfirstbot.servise.ProducerService;
+import ru.tgfirstbot.service.ProducerService;
 
 import static ru.tgfirstbot.model.RabbitQueue.ANSWER_MESSAGE;
 

@@ -27,20 +27,10 @@ Kdispatcher/src/main/java/ru/tgfirstbot/service/impl/UpdateProducerImpl.java,2\
 Mdispatcher/src/main/java/ru/tgfirstbot/configuration/RabbitConfiguration.java,9\c\9ceb6da577864043351af2a45ebf53366ac1fe4a
 <
 node/pom.xml,0\8\089e6acca410d3dda06e1bb4e7f33d1bdc05e887
-m
-=node/src/main/java/ru/tgfirstbot/servise/ConsumerService.java,4\9\496f1ef028d9c2f895d95e438a3d20cb62cd3a81
-m
-=node/src/main/java/ru/tgfirstbot/servise/ProducerService.java,e\7\e72d502f0cd81ae9b2f450d90190709199056c74
-
-Onode/src/main/java/ru/tgfirstbot/servise/configuration/RabbitConfiguration.java,7\b\7b70e1dbdc124e5b9ff7df3a26e3ac221ac32533
 w
 Gdispatcher/src/main/java/ru/tgfirstbot/controller/UpdateController.java,8\d\8d3500ea8a43db6284e5610a97c9a1359d701092
 {
 Kdispatcher/src/main/java/ru/tgfirstbot/service/impl/AnswerConsumerImpl.java,7\8\78356e5c3d8547caca0e31bf9c2486ffcd8cb40e
-v
-Fnode/src/main/java/ru/tgfirstbot/servise/impl/ProducerServiceImpl.java,b\a\bab09aff12da14d13026570d02b98e5b0e238bcb
-v
-Fnode/src/main/java/ru/tgfirstbot/servise/impl/ConsumerServiceImpl.java,0\b\0b41348565240bb7596fa69de6f54dd7c81f9dff
 e
 5node/src/main/java/ru/tgfirstbot/NodeApplication.java,e\0\e0df80c1660c8cfce9cf93d53bccaf0c185d7dfe
 8

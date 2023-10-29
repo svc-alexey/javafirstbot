@@ -44,38 +44,38 @@ public class UpdateController {
             processDocMessage(update);
         } else if (message.getPhoto() != null) {
             processPhotoMessage(update);
-        } else {
-            setUnsupportedMessage(update);
-        }
+	} else {
+            setUnsupportedMessageTypeView(update);
+	}
     }
 
-    private void setUnsupportedMessage(Update update) {
-        var sendMessage = messageUtils.generateSendMessageWithTest(update,
-                "Неподдерживаемый тип сообщения");
+    private void setUnsupportedMessageTypeView(Update update) {
+        var sendMessage = messageUtils.generateSendMessageWithText(update,
+			"Неподдерживаемый тип сообщения!");
         setView(sendMessage);
     }
 
-    private void setFileReciveView(Update update) {
-        var sendMessage = messageUtils.generateSendMessageWithTest(update,
-                "Файл получен! Обрабатывется...");
-        setView(sendMessage);
+    private void setFileIsReceivedView(Update update) {
+	var sendMessage = messageUtils.generateSendMessageWithText(update,
+			"Файл получен! Обрабатывается...");
+	setView(sendMessage);
     }
     public void setView(SendMessage sendMessage) {
         telegramBot.sendAnswerMessage(sendMessage);
     }
 
     private void processPhotoMessage(Update update) {
-        updateProducer.produce(PHOTO_MESSAGE_UPDATE, update);
-        setFileReciveView(update);
+	updateProducer.produce(PHOTO_MESSAGE_UPDATE, update);
+	setFileIsReceivedView(update);
     }
 
-    public void processTextMessage(Update update) {
+    private void processDocMessage(Update update) {
+	updateProducer.produce(DOC_MESSAGE_UPDATE, update);
+	setFileIsReceivedView(update);
+    }
+
+    private void processTextMessage(Update update) {
         updateProducer.produce(TEXT_MESSAGE_UPDATE, update);
-    }
-
-    public void processDocMessage(Update update) {
-        updateProducer.produce(DOC_MESSAGE_UPDATE, update);
-        setFileReciveView(update);
     }
 
 }
