@@ -7,15 +7,18 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import ru.tgfirstbot.dao.AppUserDAO;
 import ru.tgfirstbot.dao.RawDataDAO;
+import ru.tgfirstbot.entity.AppDocument;
 import ru.tgfirstbot.entity.AppUser;
 import ru.tgfirstbot.entity.RawData;
-import ru.tgfirstbot.entity.enums.UserState;
+import ru.tgfirstbot.exeptions.UploadFileExeption;
+import ru.tgfirstbot.service.FileService;
 import ru.tgfirstbot.service.MainService;
 import ru.tgfirstbot.service.ProducerService;
+import ru.tgfirstbot.service.enums.ServiceCommands;
 
 import static ru.tgfirstbot.entity.enums.UserState.BASIC_STATE;
 import static ru.tgfirstbot.entity.enums.UserState.WAIT_FOR_EMAIL_STATE;
-import static ru.tgfirstbot.service.ServiceCommands.*;
+import static ru.tgfirstbot.service.enums.ServiceCommands.*;
 
 @Service
 @Log4j
@@ -23,11 +26,13 @@ public class MainServiceImpl implements MainService {
     private final RawDataDAO rawDataDAO;
     private final ProducerService producerService;
     private final AppUserDAO appUserDAO;
+    private final FileService fileService;
 
-    public MainServiceImpl(RawDataDAO rawDataDAO, ProducerService producerService, AppUserDAO appUserDAO) {
+    public MainServiceImpl(RawDataDAO rawDataDAO, ProducerService producerService, AppUserDAO appUserDAO, FileService fileService) {
         this.rawDataDAO = rawDataDAO;
         this.producerService = producerService;
         this.appUserDAO = appUserDAO;
+        this.fileService = fileService;
     }
 
     @Override
@@ -39,7 +44,9 @@ public class MainServiceImpl implements MainService {
         var text = update.getMessage().getText();
         var output = "";
 
-        if (CANCEL.equals(text)) {
+        var sericeCommand = ServiceCommands.fromValue(text);
+
+        if (CANCEL.equals(sericeCommand)) {
             output = cancelProcess(appUser);
         } else if (BASIC_STATE.equals(userState)) {
             output = processServiceCommand(appUser, text);
@@ -62,15 +69,25 @@ public class MainServiceImpl implements MainService {
         if (isNotAllowToSendContent(chatId, appUser)) {
             return;
         }
-        //TODO Добавить сохрание документа
-        var aswer = "Документ успешно загружен! Ссылка для скачивания: http://wow";
-        sendAnswer(aswer, chatId);
+
+        try {
+            //TODO Добавить генерацию сылки для загрукзи
+            AppDocument doc = fileService.processDoc(update.getMessage());
+            var answer = "Документ успешно загружен! "
+                    + "Ссылка для скачивания htpps://";
+            sendAnswer(answer, chatId);
+        }catch (UploadFileExeption e) {
+            log.error(e);
+            String error = "К сожалению, загрузка файла не удалась. Повторите попыту позже";
+
+        }
     }
 
     private boolean isNotAllowToSendContent(Long chatId, AppUser appUser) {
         var userState = appUser.getState();
         if (!appUser.getIsActive()) {
-            var error = "Зарегистрируйтесь иди активируйте свою учетную запсь для загрузки контента";
+            var error = "Зарегистрируйтесь или активируйте "
+            + "свою учетную запсь для загрузки контента";
             sendAnswer(error, chatId);
             return true;
         } else if (!BASIC_STATE.equals(userState)) {
@@ -103,15 +120,17 @@ public class MainServiceImpl implements MainService {
     }
 
     private String processServiceCommand(AppUser appUser, String cmd) {
-        if (REGISTRARION.equals(cmd)) {
+        var serviceCommands = ServiceCommands.fromValue(cmd);
+
+        if (REGISTRARION.equals(serviceCommands)) {
             //TODO добавить реггистацию
             return "Команда временно недоступна";
-        } else if (START.equals(cmd)) {
+        } else if (START.equals(serviceCommands)) {
             return "Приветсвую! Чтобы посмотреть весь списолк команд введите /help";
-        } else if (HELP.equals(cmd)) {
+        } else if (HELP.equals(serviceCommands)) {
             return help();
         } else {
-            return "Неизвестная комана!";
+            return "Неизвестная комана! Чтобы посмотреть весь списолк команд введите /help";
         }
     }
 
