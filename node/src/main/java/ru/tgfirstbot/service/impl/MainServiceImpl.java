@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import ru.tgfirstbot.dao.AppUserDAO;
 import ru.tgfirstbot.dao.RawDataDAO;
 import ru.tgfirstbot.entity.AppDocument;
+import ru.tgfirstbot.entity.AppPhoto;
 import ru.tgfirstbot.entity.AppUser;
 import ru.tgfirstbot.entity.RawData;
 import ru.tgfirstbot.exeptions.UploadFileExeption;
@@ -79,7 +80,7 @@ public class MainServiceImpl implements MainService {
         }catch (UploadFileExeption e) {
             log.error(e);
             String error = "К сожалению, загрузка файла не удалась. Повторите попыту позже";
-
+            sendAnswer(error, chatId);
         }
     }
 
@@ -106,9 +107,18 @@ public class MainServiceImpl implements MainService {
         if (isNotAllowToSendContent(chatId, appUser)) {
             return;
         }
-        //TODO Добавить сохрание фото
-        var aswer = "Фото успещно загружено! Ссылка для скачивания: http://wow";
-        sendAnswer(aswer, chatId);
+
+        try {
+            //TODO Добавить генерацию сылки для загрукзи
+            AppPhoto photo = fileService.processPhoto(update.getMessage());
+            var answer = "Фото успешно загружено! "
+                    + "Ссылка для скачивания htpps://";
+            sendAnswer(answer, chatId);
+        }catch (UploadFileExeption e) {
+            log.error(e);
+            String error = "К сожалению, загрузка фото не удалась. Повторите попыту позже";
+            sendAnswer(error, chatId);
+        }
     }
 
     private void sendAnswer(String output, Long chatId) {
