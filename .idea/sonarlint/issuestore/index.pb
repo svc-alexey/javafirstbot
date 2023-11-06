@@ -79,3 +79,7 @@ s
 Cnode/src/main/java/ru/tgfirstbot/service/enums/ServiceCommands.java,0\a\0ac3d01fa1a0f1e751514c3ac242d86b63e65df9
 r
 Bnode/src/main/java/ru/tgfirstbot/exeptions/UploadFileExeption.java,7\1\71c4383038d44fba6d21de0ba9022442422f8fa4
+k
+;common-jpa/src/main/java/ru/tgfirstbot/dao/AppPhotoDAO.java,e\2\e2f1df4fd0ca621e27bf3ac055259965c56f43c7
+k
+;common-jpa/src/main/java/ru/tgfirstbot/entity/AppPhoto.java,6\7\67fb5e8edbb3e8be7cfd35daac2839b2131628bc
