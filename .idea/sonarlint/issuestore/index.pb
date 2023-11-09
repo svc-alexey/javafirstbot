@@ -83,3 +83,13 @@ k
 ;common-jpa/src/main/java/ru/tgfirstbot/dao/AppPhotoDAO.java,e\2\e2f1df4fd0ca621e27bf3ac055259965c56f43c7
 k
 ;common-jpa/src/main/java/ru/tgfirstbot/entity/AppPhoto.java,6\7\67fb5e8edbb3e8be7cfd35daac2839b2131628bc
+D
+rest-service/pom.xml,8\d\8d617d9d039623ebe08b167780cdb9123ad9a0c2
+i
+9rest-service/src/main/java/ru/tgfirstbot/RestService.java,f\d\fd20acf0ea7b61c78126d65a0f8f48e0623c03cf
+q
+Arest-service/src/main/java/ru/tgfirstbot/service/FileService.java,b\9\b9d5ce22b61dbd55f8f77b47c7c68e90f224185e
+z
+Jrest-service/src/main/java/ru/tgfirstbot/service/impl/FileServiceImpl.java,3\e\3ec4ab9e5fd9df048c12a9aa405bb7ed3a99cf01
+w
+Grest-service/src/main/java/ru/tgfirstbot/controller/FileController.java,5\1\51dabeff27ec3d6d18bc3f642497e52201c965df

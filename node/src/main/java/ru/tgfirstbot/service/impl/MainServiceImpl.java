@@ -15,6 +15,7 @@ import ru.tgfirstbot.exeptions.UploadFileExeption;
 import ru.tgfirstbot.service.FileService;
 import ru.tgfirstbot.service.MainService;
 import ru.tgfirstbot.service.ProducerService;
+import ru.tgfirstbot.service.enums.LinkType;
 import ru.tgfirstbot.service.enums.ServiceCommands;
 
 import static ru.tgfirstbot.entity.enums.UserState.BASIC_STATE;
@@ -72,10 +73,10 @@ public class MainServiceImpl implements MainService {
         }
 
         try {
-            //TODO Добавить генерацию сылки для загрукзи
             AppDocument doc = fileService.processDoc(update.getMessage());
+            String link = fileService.generateLink(doc.getId(), LinkType.GET_DOC);
             var answer = "Документ успешно загружен! "
-                    + "Ссылка для скачивания htpps://";
+                    + "Ссылка для скачивания " + link;
             sendAnswer(answer, chatId);
         }catch (UploadFileExeption e) {
             log.error(e);
@@ -109,10 +110,10 @@ public class MainServiceImpl implements MainService {
         }
 
         try {
-            //TODO Добавить генерацию сылки для загрукзи
             AppPhoto photo = fileService.processPhoto(update.getMessage());
+            String link = fileService.generateLink(photo.getId(), LinkType.GET_PHOTO);
             var answer = "Фото успешно загружено! "
-                    + "Ссылка для скачивания htpps://";
+                    + "Ссылка для скачивания " + link;
             sendAnswer(answer, chatId);
         }catch (UploadFileExeption e) {
             log.error(e);
