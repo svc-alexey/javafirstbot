@@ -12,6 +12,7 @@ import ru.tgfirstbot.entity.AppPhoto;
 import ru.tgfirstbot.entity.AppUser;
 import ru.tgfirstbot.entity.RawData;
 import ru.tgfirstbot.exeptions.UploadFileExeption;
+import ru.tgfirstbot.service.AppUserService;
 import ru.tgfirstbot.service.FileService;
 import ru.tgfirstbot.service.MainService;
 import ru.tgfirstbot.service.ProducerService;
@@ -29,12 +30,14 @@ public class MainServiceImpl implements MainService {
     private final ProducerService producerService;
     private final AppUserDAO appUserDAO;
     private final FileService fileService;
+    private final AppUserService appUserService;
 
-    public MainServiceImpl(RawDataDAO rawDataDAO, ProducerService producerService, AppUserDAO appUserDAO, FileService fileService) {
+    public MainServiceImpl(RawDataDAO rawDataDAO, ProducerService producerService, AppUserDAO appUserDAO, FileService fileService, AppUserService appUserService) {
         this.rawDataDAO = rawDataDAO;
         this.producerService = producerService;
         this.appUserDAO = appUserDAO;
         this.fileService = fileService;
+        this.appUserService = appUserService;
     }
 
     @Override
@@ -53,9 +56,9 @@ public class MainServiceImpl implements MainService {
         } else if (BASIC_STATE.equals(userState)) {
             output = processServiceCommand(appUser, text);
         } else if (WAIT_FOR_EMAIL_STATE.equals(userState)) {
-            //TODO добавить обработку емейла
+            output = appUserService.setEmail(appUser, text);
         } else {
-            log.error("Uknown user state: " + userState);
+            log.error("Unknown user state: " + userState);
             output = "Неизвестная ошибка! Введщите /cancel и порпобуйте снова";
         }
 
@@ -71,7 +74,6 @@ public class MainServiceImpl implements MainService {
         if (isNotAllowToSendContent(chatId, appUser)) {
             return;
         }
-
         try {
             AppDocument doc = fileService.processDoc(update.getMessage());
             String link = fileService.generateLink(doc.getId(), LinkType.GET_DOC);
@@ -134,8 +136,7 @@ public class MainServiceImpl implements MainService {
         var serviceCommands = ServiceCommands.fromValue(cmd);
 
         if (REGISTRARION.equals(serviceCommands)) {
-            //TODO добавить реггистацию
-            return "Команда временно недоступна";
+            return appUserService.registerUser(appUser);
         } else if (START.equals(serviceCommands)) {
             return "Приветсвую! Чтобы посмотреть весь списолк команд введите /help";
         } else if (HELP.equals(serviceCommands)) {
@@ -148,7 +149,7 @@ public class MainServiceImpl implements MainService {
     private String help() {
         return "Список дотсупных команд:\n"
                 + "/cancel - отмена выпонения текущей команды;\n"
-                + "/registration = регистрация пользователя";
+                + "/registration - регистрация пользователя";
     }
 
     private String cancelProcess(AppUser appUser) {
@@ -159,27 +160,23 @@ public class MainServiceImpl implements MainService {
 
     private  AppUser findOrSaveAppUser (Update update) {
         User telegramUser = update.getMessage().getFrom();
-        AppUser persistentAppUser = appUserDAO.findAppUserByTelegramUserId(telegramUser.getId());
-        if (persistentAppUser == null) {
+        var optional = appUserDAO.findByTelegramUserId(telegramUser.getId());
+        if (optional.isEmpty()) {
             AppUser transientAppUser = AppUser.builder()
                     .telegramUserId(telegramUser.getId())
                     .username(telegramUser.getUserName())
                     .firstName(telegramUser.getFirstName())
                     .lastName(telegramUser.getLastName())
-                    //TODO изменить значение по умолчанию после добавления регистрации
-                    .isActive(true)
+                    .isActive(false)
                     .state(BASIC_STATE)
                     .build();
             return appUserDAO.save(transientAppUser);
         }
-
-        return  persistentAppUser;
+        return optional.get();
     }
 
     private void saveRawData(Update update) {
         RawData rawData = RawData.builder().event(update).build();
         rawDataDAO.save(rawData);
     }
-
-
 }
