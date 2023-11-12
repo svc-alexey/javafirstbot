@@ -1,0 +1,21 @@
+server:
+  port: 8087
+  ssl:
+    enabled: false
+
+bot:
+  name: JavaFirstStartBot
+  token: 6833519780:AAFR-ERwU631mCMZU2qiK5NIcLJ_z66oN70
+  url: https://afc6-31-28-230-166.ngrok-free.app/
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: userok
+    password: p@ssw0rd
+    queues:
+      text-message-update: text_message_update
+      doc-message-update: doc_message_update
+      photo-message-update: photo_message_update
+      answer-message: answer_message

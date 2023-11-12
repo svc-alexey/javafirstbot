@@ -1,19 +1,16 @@
 package ru.tgfirstbot.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.tgfirstbot.CryptoTool;
 import ru.tgfirstbot.dao.AppUserDAO;
 import ru.tgfirstbot.service.UserActivationService;
 
+@RequiredArgsConstructor
 @Service
 public class UserActivationSeviceImpl implements UserActivationService {
     private final AppUserDAO appUserDAO;
     private final CryptoTool cryptoTool;
-
-    public UserActivationSeviceImpl(AppUserDAO appUserDAO, CryptoTool cryptoTool) {
-        this.appUserDAO = appUserDAO;
-        this.cryptoTool = cryptoTool;
-    }
 
     @Override
     public boolean activation(String cryptoUserId) {

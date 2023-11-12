@@ -1,0 +1,21 @@
+server:
+  port: 8185
+
+spring:
+  mail:
+    host: smtp.yandex.ru
+    port: 465
+    protocol: smtps
+    username: svc.alexey97@yandex.ru
+    password: kbtypeahcvbnjqhf
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: userok
+    password: p@ssw0rd
+    queues:
+      registration-mail: registration_mail
+
+service:
+  activation:
+    url: http://127.0.0.1:8189/user/activation?id={id}

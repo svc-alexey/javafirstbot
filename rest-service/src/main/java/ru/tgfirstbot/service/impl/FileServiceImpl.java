@@ -1,5 +1,6 @@
 package ru.tgfirstbot.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.FileSystemResource;
@@ -12,18 +13,13 @@ import ru.tgfirstbot.entity.AppPhoto;
 import ru.tgfirstbot.entity.BinaryContent;
 import ru.tgfirstbot.service.FileService;
 
-@Service
 @Log4j
+@RequiredArgsConstructor
+@Service
 public class FileServiceImpl implements FileService {
     private final AppDocumentDAO appDocumentDAO;
     private final AppPhotoDAO appPhotoDAO;
     private final CryptoTool cryptoTool;
-
-    public FileServiceImpl(AppDocumentDAO appDocumentDAO, AppPhotoDAO appPhotoDAO, CryptoTool cryptoTool) {
-        this.appDocumentDAO = appDocumentDAO;
-        this.appPhotoDAO = appPhotoDAO;
-        this.cryptoTool = cryptoTool;
-    }
 
     @Override
     public AppDocument getDocument(String docId) {

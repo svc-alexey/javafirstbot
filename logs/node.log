@@ -94,3 +94,9 @@
 2023-11-12 16:40:45 DEBUG ConsumerServiceImpl:25 - NODE: Text message is recived
 2023-11-12 16:42:48 DEBUG ConsumerServiceImpl:39 - NODE: Text message is recived
 2023-11-12 16:43:11 DEBUG ConsumerServiceImpl:32 - NODE: Text message is recived
+2023-11-12 19:12:36 DEBUG ConsumerServiceImpl:32 - NODE: Text message is recived
+2023-11-12 21:53:23 DEBUG ConsumerServiceImpl:21 - NODE: Text message is received
+2023-11-12 21:53:27 DEBUG ConsumerServiceImpl:21 - NODE: Text message is received
+2023-11-12 21:53:29 DEBUG ConsumerServiceImpl:21 - NODE: Text message is received
+2023-11-12 21:53:37 DEBUG ConsumerServiceImpl:35 - NODE: Text message is received
+2023-11-12 21:53:53 DEBUG ConsumerServiceImpl:28 - NODE: Text message is received

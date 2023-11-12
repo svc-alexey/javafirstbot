@@ -1,5 +1,6 @@
 package ru.tgfirstbot.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +26,10 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Service
+
 @Log4j
+@RequiredArgsConstructor
+@Service
 public class FileServiceImpl implements FileService {
     @Value("${token}")
     private String token;
@@ -40,12 +43,7 @@ public class FileServiceImpl implements FileService {
     private final AppPhotoDAO appPhotoDAO;
     private final BinaryContentDAO binaryContentDAO;
     private final CryptoTool cryptoTool;
-    public FileServiceImpl(AppDocumentDAO appDocumentDAO, AppPhotoDAO appPhotoDAO, BinaryContentDAO binaryContentDAO, CryptoTool cryptoTool) {
-        this.appDocumentDAO = appDocumentDAO;
-        this.appPhotoDAO = appPhotoDAO;
-        this.binaryContentDAO = binaryContentDAO;
-        this.cryptoTool = cryptoTool;
-    }
+
     @Override
     public AppPhoto processPhoto(Message telegramMessage) {
         var photoSizeCount = telegramMessage.getPhoto().size();

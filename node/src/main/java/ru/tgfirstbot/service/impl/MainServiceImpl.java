@@ -1,7 +1,9 @@
 package ru.tgfirstbot.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -23,8 +25,10 @@ import static ru.tgfirstbot.entity.enums.UserState.BASIC_STATE;
 import static ru.tgfirstbot.entity.enums.UserState.WAIT_FOR_EMAIL_STATE;
 import static ru.tgfirstbot.service.enums.ServiceCommands.*;
 
-@Service
+
 @Log4j
+@RequiredArgsConstructor
+@Service
 public class MainServiceImpl implements MainService {
     private final RawDataDAO rawDataDAO;
     private final ProducerService producerService;
@@ -32,14 +36,7 @@ public class MainServiceImpl implements MainService {
     private final FileService fileService;
     private final AppUserService appUserService;
 
-    public MainServiceImpl(RawDataDAO rawDataDAO, ProducerService producerService, AppUserDAO appUserDAO, FileService fileService, AppUserService appUserService) {
-        this.rawDataDAO = rawDataDAO;
-        this.producerService = producerService;
-        this.appUserDAO = appUserDAO;
-        this.fileService = fileService;
-        this.appUserService = appUserService;
-    }
-
+    @Transactional
     @Override
     public void proccesTextMessage(Update update) {
         saveRawData(update);
@@ -49,9 +46,9 @@ public class MainServiceImpl implements MainService {
         var text = update.getMessage().getText();
         var output = "";
 
-        var sericeCommand = ServiceCommands.fromValue(text);
+        var serviceCommands = ServiceCommands.fromValue(text);
 
-        if (CANCEL.equals(sericeCommand)) {
+        if (CANCEL.equals(serviceCommands)) {
             output = cancelProcess(appUser);
         } else if (BASIC_STATE.equals(userState)) {
             output = processServiceCommand(appUser, text);
@@ -117,7 +114,7 @@ public class MainServiceImpl implements MainService {
             var answer = "Фото успешно загружено! "
                     + "Ссылка для скачивания " + link;
             sendAnswer(answer, chatId);
-        }catch (UploadFileExeption e) {
+        } catch (UploadFileExeption e) {
             log.error(e);
             String error = "К сожалению, загрузка фото не удалась. Повторите попыту позже";
             sendAnswer(error, chatId);
@@ -125,7 +122,6 @@ public class MainServiceImpl implements MainService {
     }
 
     private void sendAnswer(String output, Long chatId) {
-
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         sendMessage.setText(output);

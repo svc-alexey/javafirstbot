@@ -1,9 +1,9 @@
 package ru.tgfirstbot.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,8 +13,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import javax.annotation.PostConstruct;
 
-@Component
+
 @Log4j
+@RequiredArgsConstructor
+@Component
 public class TelegramBot extends TelegramWebhookBot {
 
     @Value("${bot.name}")
@@ -23,6 +25,7 @@ public class TelegramBot extends TelegramWebhookBot {
     private String botToken;
     @Value("${bot.url}")
     private  String botUrl;
+    private final UpdateProcessor updateProcessor;
     @Override
     public String getBotUsername() {
          return botName;
@@ -30,12 +33,6 @@ public class TelegramBot extends TelegramWebhookBot {
     @Override
     public String getBotToken() {
         return botToken;
-    }
-
-    private final UpdateProcessor updateProcessor;
-
-    public  TelegramBot(UpdateProcessor updateProcessor) {
-        this.updateProcessor = updateProcessor;
     }
     @PostConstruct
     public void init () {
@@ -58,12 +55,10 @@ public class TelegramBot extends TelegramWebhookBot {
             }
         }
     }
-
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         return null;
     }
-
     @Override
     public String getBotPath() {
         return "/update";

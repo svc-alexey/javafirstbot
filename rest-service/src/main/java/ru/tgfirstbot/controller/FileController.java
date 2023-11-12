@@ -1,5 +1,6 @@
 package ru.tgfirstbot.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +13,13 @@ import ru.tgfirstbot.service.FileService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Log4j
+@RequiredArgsConstructor
 @RequestMapping("/file")
 @RestController
-@Log4j
 public class FileController {
     private final FileService fileService;
 
-    public FileController(FileService fileService) {
-        this.fileService = fileService;
-    }
     @RequestMapping(method = RequestMethod.GET, value = "/get-doc")
     public void getDoc(@RequestParam("id") String id, HttpServletResponse response) {
         //TODO для формирования badRequest добавить ControllerAdvice

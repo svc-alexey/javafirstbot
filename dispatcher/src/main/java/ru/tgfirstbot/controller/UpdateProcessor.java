@@ -1,6 +1,8 @@
 package ru.tgfirstbot.controller;
 
 
+import lombok.RequiredArgsConstructor;
+import ru.tgfirstbot.configuration.RabbitConfiguration;
 import ru.tgfirstbot.service.UpdateProducer;
 import ru.tgfirstbot.utils.MessageUtils;
 import lombok.extern.log4j.Log4j;
@@ -8,19 +10,14 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static ru.tgfirstbot.model.RabbitQueue.*;
-
-@Component
 @Log4j
+@RequiredArgsConstructor
+@Component
 public class UpdateProcessor {
     private TelegramBot telegramBot;
     private final MessageUtils messageUtils;
     private final UpdateProducer updateProducer;
-
-    public UpdateProcessor(MessageUtils messageUtils, UpdateProducer updateProducer) {
-        this.messageUtils = messageUtils;
-        this.updateProducer = updateProducer;
-    }
+    private final RabbitConfiguration rabbitConfiguration;
 
     public void registerBot(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
@@ -66,17 +63,17 @@ public class UpdateProcessor {
     }
 
     private void processPhotoMessage(Update update) {
-        updateProducer.produce(PHOTO_MESSAGE_UPDATE, update);
+        updateProducer.produce(rabbitConfiguration.getPhotoMessageUpdateQueue(), update);
         setFileIsReceivedView(update);
     }
 
     private void processDocMessage(Update update) {
-        updateProducer.produce(DOC_MESSAGE_UPDATE, update);
+        updateProducer.produce(rabbitConfiguration.getDocMessageUpdateQueue(), update);
         setFileIsReceivedView(update);
     }
 
     private void processTextMessage(Update update) {
-        updateProducer.produce(TEXT_MESSAGE_UPDATE, update);
+        updateProducer.produce(rabbitConfiguration.getTextMessageUpdateQueue(), update);
     }
 
 }

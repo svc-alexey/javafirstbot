@@ -1,4 +1,4 @@
-package ru.tgfirstbot.service.configuration;
+package ru.tgfirstbot.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

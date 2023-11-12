@@ -1,6 +1,10 @@
 package ru.tgfirstbot.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -9,5 +13,6 @@ import lombok.*;
 @NoArgsConstructor
 public class MailParams {
     private String id;
+
     private String mailTo;
 }

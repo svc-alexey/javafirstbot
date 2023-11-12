@@ -115,3 +115,12 @@
 2023-11-12 16:40:42 DEBUG UpdateProducerImpl:22 - /start
 2023-11-12 16:42:48 DEBUG UpdateProducerImpl:22 - 
 2023-11-12 16:43:11 DEBUG UpdateProducerImpl:22 - 
+2023-11-12 19:12:36 DEBUG UpdateProducerImpl:22 - 
+2023-11-12 21:41:18 DEBUG UpdateProducerImpl:20 - /help
+2023-11-12 21:46:20 DEBUG UpdateProducerImpl:20 - /help
+2023-11-12 21:49:36 DEBUG UpdateProducerImpl:20 - /help
+2023-11-12 21:53:23 DEBUG UpdateProducerImpl:20 - /help
+2023-11-12 21:53:27 DEBUG UpdateProducerImpl:20 - /registration
+2023-11-12 21:53:29 DEBUG UpdateProducerImpl:20 - /cancel
+2023-11-12 21:53:37 DEBUG UpdateProducerImpl:20 - 
+2023-11-12 21:53:53 DEBUG UpdateProducerImpl:20 - 

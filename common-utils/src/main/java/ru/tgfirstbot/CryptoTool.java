@@ -3,10 +3,11 @@ package ru.tgfirstbot;
 import org.hashids.Hashids;
 
 public class CryptoTool {
-    private Hashids hashids;
+    private final Hashids hashids;
 
     public CryptoTool (String salt) {
         var minHasLenght = 10;
+
         this.hashids = new Hashids(salt, minHasLenght);
     }
 
@@ -21,5 +22,4 @@ public class CryptoTool {
         }
         return null;
     }
-
 }
