@@ -4,22 +4,22 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import ru.tgfirstbot.controller.UpdateController;
+import ru.tgfirstbot.controller.UpdateProcessor;
 import ru.tgfirstbot.service.AnswerConsumer;
 
 import static ru.tgfirstbot.model.RabbitQueue.ANSWER_MESSAGE;
 
 @Service
 public class AnswerConsumerImpl implements AnswerConsumer {
-   private final UpdateController updateController;
+   private final UpdateProcessor updateProcessor;
 
-    public AnswerConsumerImpl(UpdateController updateController) {
-        this.updateController = updateController;
+    public AnswerConsumerImpl(UpdateProcessor updateProcessor) {
+        this.updateProcessor = updateProcessor;
     }
 
     @Override
     @RabbitListener(queues = ANSWER_MESSAGE)
     public void consume(SendMessage sandMessage) {
-        updateController.setView(sandMessage);
+        updateProcessor.setView(sandMessage);
     }
 }

@@ -12,9 +12,6 @@ import ru.tgfirstbot.entity.AppPhoto;
 import ru.tgfirstbot.entity.BinaryContent;
 import ru.tgfirstbot.service.FileService;
 
-import java.io.File;
-import java.io.IOException;
-
 @Service
 @Log4j
 public class FileServiceImpl implements FileService {
@@ -44,19 +41,5 @@ public class FileServiceImpl implements FileService {
             return null;
         }
         return appPhotoDAO.findById(id).orElse(null);
-    }
-
-    @Override
-    public FileSystemResource getFileSystemResource(BinaryContent binaryContent) {
-        try {
-            //TODO добавить генерацию имени временного файла
-            File temp = File.createTempFile("tempFile", ".bin");
-            temp.deleteOnExit();
-            FileUtils.writeByteArrayToFile(temp, binaryContent.getFileAsArrayOfBytes());
-            return new FileSystemResource(temp);
-        } catch (IOException e) {
-            log.error(e);
-            return null;
-        }
     }
 }
